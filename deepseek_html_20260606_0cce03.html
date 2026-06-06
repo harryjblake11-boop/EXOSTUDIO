@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>EXO STUDIO — Muqarnas · Polished Stone & Ceramic Library</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #F5EFE2;
+      color: #3B2E24;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* all text deep brown — no black */
+    h1, h2, h3, h4, p, span, a, li, .logo-text, .nav-links a, .section-subtitle, .hero-desc, .detail-link, .badge-clay, .texture-desc, .upload-label, .values-list li, footer, .footer-inner, .footer-social a {
+      color: #3B2E24;
+    }
+
+    /* MUQARNAS BACKGROUND — Mirror Mosque inspired (geometric, faceted, subtle shimmer) */
+    .muqarnas-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 20% 30%, rgba(210, 190, 150, 0.15) 0%, rgba(235, 220, 190, 0.05) 100%);
+    }
+    .muqarnas-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+    header, main, footer, .container, .upload-card, .project-card, .values-list, .texture-grid {
+      position: relative;
+      z-index: 2;
+    }
+
+    ::selection {
+      background: #B9AA8A;
+      color: #F5EFE2;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    h1, h2, h3, .logo-text, .nav-links a, .section-subtitle, .stat-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    h1 {
+      font-size: 4.2rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-size: 2.8rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+
+    header {
+      padding: 1.8rem 0;
+      border-bottom: 1px solid #DDD0BC;
+      background-color: rgba(245, 239, 226, 0.92);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-img {
+      height: 52px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      border-radius: 2px;
+    }
+
+    .placeholder-logo {
+      font-size: 1.7rem;
+      font-weight: 500;
+      font-family: 'Cormorant Garamond', serif;
+      background: #E8DFCF;
+      padding: 0.3rem 1rem;
+      border-radius: 2px;
+      letter-spacing: 1px;
+    }
+
+    .logo-text {
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 500;
+      transition: 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: #BBAA86;
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 5rem 0 6rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 3rem;
+    }
+
+    .hero-content {
+      flex: 1.2;
+    }
+
+    .hero-tag {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    .hero-desc {
+      font-size: 1.3rem;
+      max-width: 550px;
+      margin: 1.8rem 0 1rem;
+      border-left: 3px solid #DAC29C;
+      padding-left: 1.5rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item h3 {
+      font-size: 2rem;
+      font-weight: 600;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .stat-item p {
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .upload-card {
+      flex: 0.8;
+      background: #FCF8F0;
+      border: 1px solid #E2D3BE;
+      padding: 1.8rem 2rem;
+    }
+
+    .upload-label {
+      font-weight: 500;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .custom-file-btn {
+      background: transparent;
+      border: 1px solid #CDBC9A;
+      padding: 0.7rem 1.2rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .custom-file-btn:hover {
+      background: #EFE5D6;
+      border-color: #B29C72;
+    }
+
+    .logo-preview-area {
+      margin-top: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      border-top: 1px solid #EBDDCB;
+      padding-top: 1.2rem;
+    }
+
+    #logoPreviewImg {
+      max-height: 56px;
+      max-width: 140px;
+      object-fit: contain;
+    }
+
+    .section {
+      padding: 5rem 0;
+      border-top: 1px solid #E5D7C5;
+    }
+
+    /* EXOTextures Grid — premium stones & ceramics */
+    .texture-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2.5rem 0 1rem;
+    }
+
+    .texture-card {
+      background: #FDFAF3;
+      border: 1px solid #E6D9C6;
+      padding: 1.6rem;
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+
+    .texture-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 28px -10px rgba(46, 58, 43, 0.12);
+      border-color: #CFBE9A;
+    }
+
+    .texture-preview {
+      width: 100%;
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .texture-card h3 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .texture-desc {
+      font-size: 0.85rem;
+      margin: 0.5rem 0;
+      opacity: 0.8;
+    }
+
+    .badge-clay {
+      display: inline-block;
+      background: #E2D8C4;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      margin: 0.5rem 0;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: none;
+      border: 1px solid #CABB98;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .download-btn:hover {
+      background: #EFE5D6;
+      border-color: #A9946B;
+    }
+
+    .project-card {
+      background: #FDFAF3;
+      padding: 1.8rem;
+      border-bottom: 3px solid #DECFAD;
+    }
+
+    .project-icon {
+      font-size: 2.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .detail-link {
+      margin-top: 1.4rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      border-bottom: 1px solid #DBCAA8;
+    }
+
+    .about-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      justify-content: space-between;
+    }
+
+    .about-text { flex: 1.5; }
+    .values-list {
+      flex: 1;
+      background: #F7F0E3;
+      padding: 2rem;
+      border-left: 6px solid #D4BE95;
+    }
+    .values-list li {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 0.8rem;
+      align-items: baseline;
+    }
+
+    .persian-insight {
+      background: #F2EADD;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-right: 6px solid #C6B28B;
+    }
+
+    footer {
+      background: #EDE4D6;
+      padding: 2.5rem 0;
+      margin-top: 2rem;
+      border-top: 1px solid #DCCCB6;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+    }
+    .footer-social a {
+      margin-left: 1rem;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+    @media (max-width: 860px) {
+      .nav-bar { flex-direction: column; align-items: flex-start; }
+      .hero { flex-direction: column; }
+      h1 { font-size: 3rem; }
+      .container { padding: 0 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Muqarnas Background Canvas — Mirror Mosque inspired (facets, light reflections) -->
+<canvas id="muqarnasCanvas" class="muqarnas-canvas"></canvas>
+<div class="muqarnas-bg"></div>
+
+<header>
+  <div class="container nav-bar">
+    <div class="logo-area" id="logoArea">
+      <div id="dynamicLogoContainer">
+        <div class="placeholder-logo" id="placeholderLogoBox">EXO</div>
+        <img id="mainLogoImg" class="logo-img" style="display: none;" alt="EXO Studio Logo">
+      </div>
+      <span class="logo-text">studio</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">home</a></li>
+      <li><a href="#exotextures">exotextures</a></li>
+      <li><a href="#case-study">regenerative case study</a></li>
+      <li><a href="#digital">digital hub</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="container" id="home">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-tag">EXO STUDIO — MUQARNAS · MIRROR · POLISHED STONE</div>
+        <h1>Faceted light.<br>Mirror geometry.<br>Stone memory.</h1>
+        <div class="hero-desc">
+          Inspired by the Mirror Mosques of Shiraz — where every niche reflects infinity. Our textures carry that same luminosity: calcite, marble, and ceramic born from algorithmic craft.
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item"><h3>8+</h3><p>premium stones</p></div>
+          <div class="stat-item"><h3>muqarnas</h3><p>algorithmic facets</p></div>
+          <div class="stat-item"><h3>BIM</h3><p>revit + archicad</p></div>
+        </div>
+      </div>
+      <div class="upload-card">
+        <div class="upload-label"><i class="fas fa-drafting-compass"></i> brand signature</div>
+        <p style="font-size: 0.8rem; margin-bottom: 1rem; opacity:0.8;">Upload your EXO Studio logo — replaces the default mark.</p>
+        <div class="file-input-wrap">
+          <label for="logoUpload" class="custom-file-btn"><i class="fas fa-cloud-upload-alt"></i> choose logo image</label>
+          <input type="file" id="logoUpload" accept="image/png, image/jpeg, image/jpg, image/svg+xml, image/webp">
+        </div>
+        <div class="logo-preview-area" id="logoPreviewArea" style="display: none;">
+          <span class="preview-label"><i class="far fa-image"></i> preview</span>
+          <img id="logoPreviewImg" alt="logo preview">
+          <button id="removeLogoBtn" class="remove-logo-btn" style="background:none; border:none; cursor:pointer;"><i class="fas fa-trash-alt"></i> remove</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXOTextures Section — Premium polished stone & ceramic -->
+    <div class="section" id="exotextures">
+      <div class="section-subtitle">material archive</div>
+      <h2>EXOTextures · Polished calcite · Marble · Ceramic</h2>
+      <p style="margin-top: 0.5rem; max-width: 800px; opacity:0.8;">No scribbles, no noise — just authentic veining, crystalline reflections, and deep brown marble. Each texture is a high-resolution seamless tile, inspired by Persian stone masonry and contemporary digital fabrication. Ready for Revit, ArchiCAD, Rhino.</p>
+      <div class="texture-grid" id="textureGridContainer"></div>
+    </div>
+
+    <!-- Regenerative Case Study -->
+    <div class="section" id="case-study">
+      <div class="section-subtitle">case study · from the iranian report</div>
+      <h2>Regenerative materials · Muqarnas logic · Passive stone</h2>
+      <div class="persian-insight">
+        <i class="fas fa-leaf" style="font-size: 2rem; margin-bottom: 0.5rem; display: inline-block; opacity:0.9;"></i>
+        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">The ethics of stone & mirror</h3>
+        <p style="margin-bottom: 1.2rem;"><strong>Regenerative Materials:</strong> Polished calcite and marble are not just surfaces — they are geological archives. When quarried responsibly and paired with low-carbon binders, stone offers centuries of durability and full recyclability. The Mirror Mosques taught us that light reflected through faceted stone becomes a spiritual tool. We apply that principle to modern cladding: low-embodied carbon, locally sourced where possible, and designed for disassembly.</p>
+        <p><strong>Muqarnas as Algorithm:</strong> The stalactite vault is a fractal logic written in stone and plaster. Every niche, every mirror facet multiplies light infinitely. At EXO Studio, we translate muqarnas tiling into parametric workflows — generating faceted cladding systems that breathe, reflect, and cool passively.</p>
+      </div>
+      <div class="grid-2col" style="margin-top: 1rem;">
+        <div class="project-card"><i class="fas fa-gem project-icon"></i><h3>Polished stone loops</h3><p>Calcite and marble offcuts can be crushed into terrazzo or re-polished into new slabs. Zero waste, infinite life.</p></div>
+        <div class="project-card"><i class="fas fa-cube project-icon"></i><h3>Parametric muqarnas</h3><p>We generate faceted, mirror-like cladding panels using computational geometry — direct homage to Persian vaulting.</p></div>
+      </div>
+    </div>
+
+    <!-- DIGITAL HOME HUB -->
+    <div class="section" id="digital">
+      <div class="section-subtitle">digital home hub</div>
+      <h2>Computational design · Faceted tile generators</h2>
+      <div class="grid-2col">
+        <div class="project-card"><div class="project-icon"><i class="fas fa-chart-line"></i></div><h3>light reflection sim</h3><p>Real-time radiance for faceted stone cladding.</p><a href="#" class="detail-link">explore →</a></div>
+        <div class="project-card"><div class="project-icon"><i class="fas fa-ruler-combined"></i></div><h3>muqarnas grasshopper</h3><p>Parametric definitions for mirror-tile systems.</p><a href="#" class="detail-link">access →</a></div>
+      </div>
+    </div>
+
+    <!-- ABOUT + VALUES -->
+    <div class="section" id="about">
+      <div class="about-wrap">
+        <div class="about-text">
+          <div class="section-subtitle">philosophy</div>
+          <h2>Architect as light alchemist</h2>
+          <p style="margin-bottom: 1rem;">EXO Studio studies the Mirror Mosques: their muqarnas ceilings turn humble plaster into infinite reflections. We translate that into computational workflows, BIM objects, and open-source texture libraries. Every calcite vein, every marble swirl carries the memory of deep time.</p>
+          <p>We work with architects who want their digital models to shimmer, their renderings to feel like polished stone, and their buildings to one day return to the earth — or be reborn as new facades.</p>
+        </div>
+        <div class="values-list">
+          <li><i class="fas fa-gem"></i> <strong>Polished ethics</strong> — calcite, marble, local stone loops</li>
+          <li><i class="fas fa-lightbulb"></i> <strong>Light geometry</strong> — muqarnas as reflective algorithm</li>
+          <li><i class="fas fa-cube"></i> <strong>Parametric heritage</strong> — facet tiling for modern cladding</li>
+          <li><i class="fas fa-database"></i> <strong>BIM ready</strong> — seamless material libraries</li>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="section" id="contact" style="border-bottom: none; padding-bottom: 3rem;">
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; align-items: center;">
+        <div>
+          <div class="section-subtitle">connect with exo</div>
+          <h2 style="font-size: 2rem;">Let's build with<br>mirror & stone.</h2>
+          <p style="margin-top: 1rem; max-width: 400px; font-size: 1.1rem;"><i class="fas fa-envelope"></i> <strong>exostudio777@outlook.com</strong><br> <i class="fas fa-phone-alt"></i> +49 30 123 45678</p>
+        </div>
+        <div style="background: #F2EADF; padding: 1rem 2rem; border-left: 4px solid #D0BB94;">
+          <p><i class="fas fa-map-pin"></i> studio visit by appointment</p>
+          <p>Münzstraße 21, 10178 Berlin</p>
+          <p><i class="fas fa-clock"></i> Mon–Fri / digital hub 24/7</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© 2025 EXO STUDIO — Muqarnas · Polished Stone · Digital Mirror | exostudio777@outlook.com</span>
+    <div class="footer-social">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---------- MUQARNAS BACKGROUND (Mirror Mosque inspired: faceted geometric cells, light reflections) ----------
+  const canvas = document.getElementById('muqarnasCanvas');
+  function drawMuqarnas() {
+    if (!canvas) return;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, w, h);
+    
+    // Draw faceted muqarnas cells — inspired by Mirror Mosques: overlapping arched niches, geometric tessellation
+    const stepX = 75;
+    const stepY = 70;
+    ctx.globalAlpha = 0.28;
+    
+    for (let x = -50; x < w + 50; x += stepX) {
+      for (let y = -50; y < h + 50; y += stepY) {
+        const variant = (Math.floor(x / stepX) + Math.floor(y / stepY)) % 5;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.beginPath();
+        
+        if (variant === 0 || variant === 2) {
+          // niche arch (muqarnas cell)
+          ctx.moveTo(0, 15);
+          ctx.quadraticCurveTo(25, -15, 50, 15);
+          ctx.lineTo(50, 40);
+          ctx.lineTo(0, 40);
+          ctx.fillStyle = `rgba(200, 175, 135, ${0.1 + Math.sin(x * 0.02 + y * 0.01) * 0.05})`;
+          ctx.fill();
+          ctx.strokeStyle = `rgba(140, 110, 75, 0.25)`;
+          ctx.stroke();
+        } else if (variant === 1) {
+          // star polygon cell
+          for (let i = 0; i < 5; i++) {
+            const angle = (i * 72 - 90) * Math.PI / 180;
+            const x1 = 25 + 20 * Math.cos(angle);
+            const y1 = 25 + 20 * Math.sin(angle);
+            if (i === 0) ctx.moveTo(x1, y1);
+            else ctx.lineTo(x1, y1);
+          }
+          ctx.closePath();
+          ctx.fillStyle = `rgba(190, 160, 120, 0.12)`;
+          ctx.fill();
+          ctx.strokeStyle = `rgba(130, 100, 65, 0.25)`;
+          ctx.stroke();
+        } else {
+          // diamond facet
+          ctx.moveTo(25, 5);
+          ctx.lineTo(45, 25);
+          ctx.lineTo(25, 45);
+          ctx.lineTo(5, 25);
+          ctx.closePath();
+          ctx.fillStyle = `rgba(210, 180, 140, 0.1)`;
+          ctx.fill();
+          ctx.strokeStyle = `rgba(150, 115, 80, 0.2)`;
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+    }
+    // add subtle mirror-like highlight streaks
+    ctx.globalAlpha = 0.12;
+    for (let i = 0; i < 60; i++) {
+      ctx.beginPath();
+      ctx.moveTo(Math.random() * w, Math.random() * h);
+      ctx.lineTo(Math.random() * w, Math.random() * h);
+      ctx.strokeStyle = `rgba(255, 235, 190, 0.15)`;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+  }
+  window.addEventListener('resize', () => drawMuqarnas());
+  drawMuqarnas();
+  
+  // ---------- PREMIUM TEXTURE LIBRARY (Polished Calcite, White Marble, Brown Marble, Persian Ceramic) ----------
+  const premiumTextures = [
+    { name: "Polished Calcite (Honey Onyx)", desc: "Translucent, warm beige with subtle crystalline veins. Ideal for backlit panels and sacred spaces.", tags: "calcite, onyx, translucent", baseColor: "#E7D9B8", veinColor: "#C7AA7A", style: "calcite" },
+    { name: "Carrara Bianco Marble", desc: "Soft white base with fine, wispy gray veining. Classic, luminous, and timeless.", tags: "white marble, carrara, classic", baseColor: "#F0EDE5", veinColor: "#B5AA9A", style: "white_marble" },
+    { name: "Persian Brown Marble (Dehbid)", desc: "Rich deep brown with golden and taupe veining. Warm, luxurious, and dramatic.", tags: "brown marble, dehbid, iranian", baseColor: "#5C4030", veinColor: "#9B7B4C", style: "brown_marble" },
+    { name: "Luster Glazed Ceramic (Turquoise & Cobalt)", desc: "Handmade-inspired ceramic with metallic luster and deep blue-green flecks. Mirror mosque finish.", tags: "ceramic, glazed, luster", baseColor: "#B8C4A8", accentColor: "#2F6B5E", style: "ceramic_luster" }
+  ];
+  
+  function generatePremiumTexture(tex, width=1200, height=1200) {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    
+    // base color
+    ctx.fillStyle = tex.baseColor;
+    ctx.fillRect(0, 0, width, height);
+    
+    if (tex.style === 'calcite') {
+      // calcite: crystalline veins, subtle translucency
+      for (let i = 0; i < 600; i++) {
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * width, Math.random() * height);
+        ctx.lineTo(Math.random() * width, Math.random() * height);
+        ctx.strokeStyle = `rgba(199, 170, 122, ${Math.random() * 0.5 + 0.2})`;
+        ctx.lineWidth = Math.random() * 2.5 + 0.8;
+        ctx.stroke();
+      }
+      // soft crystal clusters
+      for (let i=0; i<3000; i++) {
+        ctx.fillStyle = `rgba(240, 225, 190, ${Math.random() * 0.4})`;
+        ctx.fillRect(Math.floor(Math.random()*width), Math.floor(Math.random()*height), 2, 2);
+      }
+    } 
+    else if (tex.style === 'white_marble') {
+      // white marble: fine gray veins
+      for (let i = 0; i < 400; i++) {
+        ctx.beginPath();
+        let x = Math.random() * width;
+        let y = Math.random() * height;
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + (Math.random() - 0.5) * 80, y + (Math.random() - 0.5) * 60);
+        ctx.strokeStyle = `rgba(150, 140, 125, ${Math.random() * 0.5 + 0.15})`;
+        ctx.lineWidth = Math.random() * 1.8 + 0.6;
+        ctx.stroke();
+      }
+    }
+    else if (tex.style === 'brown_marble') {
+      // rich brown marble: golden/taupe swirling veins
+      for (let i = 0; i < 500; i++) {
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * width, Math.random() * height);
+        ctx.lineTo(Math.random() * width, Math.random() * height);
+        ctx.strokeStyle = `rgba(155, 123, 76, ${Math.random() * 0.7 + 0.2})`;
+        ctx.lineWidth = Math.random() * 3 + 0.8;
+        ctx.stroke();
+      }
+      for (let i=0; i<5000; i++) {
+        ctx.fillStyle = `rgba(100, 70, 45, ${Math.random() * 0.3})`;
+        ctx.fillRect(Math.floor(Math.random()*width), Math.floor(Math.random()*height), 2, 2);
+      }
+    }
+    else if (tex.style === 'ceramic_luster') {
+      // glazed ceramic with turquoise/cobalt metallic flecks
+      ctx.fillStyle = tex.baseColor;
+      ctx.fillRect(0, 0, width, height);
+      for (let i=0; i<8000; i++) {
+        const r = Math.random();
+        if (r < 0.6) ctx.fillStyle = `rgba(47, 107, 94, ${Math.random() * 0.6 + 0.2})`;
+        else ctx.fillStyle = `rgba(30, 45, 90, ${Math.random() * 0.7})`;
+        ctx.fillRect(Math.floor(Math.random()*width), Math.floor(Math.random()*height), Math.random()*5+1, Math.random()*5+1);
+      }
+      // metallic luster streaks
+      for (let i=0; i<200; i++) {
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * width, Math.random() * height);
+        ctx.lineTo(Math.random() * width, Math.random() * height);
+        ctx.strokeStyle = `rgba(210, 180, 110, ${Math.random() * 0.5})`;
+        ctx.lineWidth = Math.random() * 2 + 0.5;
+        ctx.stroke();
+      }
+    }
+    
+    // final subtle polish (blend)
+    return canvas.toDataURL('image/jpeg', 0.95);
+  }
+  
+  function buildTextureLibrary() {
+    const container = document.getElementById('textureGridContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    premiumTextures.forEach((tex, idx) => {
+      const previewUrl = generatePremiumTexture(tex, 500, 500);
+      const card = document.createElement('div'); card.className = 'texture-card';
+      card.innerHTML = `
+        <div class="texture-preview" style="background-image: url('${previewUrl}'); background-size: cover;"></div>
+        <h3>${tex.name}</h3>
+        <div class="badge-clay"><i class="fas fa-gem"></i> EXOTexture · Polished · BIM ready</div>
+        <p class="texture-desc">${tex.desc}</p>
+        <div style="font-size: 0.7rem;">${tex.tags}</div>
+        <button class="download-btn" data-idx="${idx}"><i class="fas fa-download"></i> Download JPEG (seamless tile)</button>
+      `;
+      container.appendChild(card);
+    });
+    document.querySelectorAll('.download-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(btn.getAttribute('data-idx'), 10);
+        if (!isNaN(idx) && premiumTextures[idx]) {
+          const tex = premiumTextures[idx];
+          const fullRes = generatePremiumTexture(tex, 2000, 2000);
+          const a = document.createElement('a');
+          a.href = fullRes;
+          a.download = `exo_${tex.name.toLowerCase().replace(/[^a-z0-9]/g, '_')}.jpg`;
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        }
+      });
+    });
+  }
+  
+  // LOGO UPLOAD
+  const logoUpload = document.getElementById('logoUpload');
+  const mainLogo = document.getElementById('mainLogoImg');
+  const placeholderBox = document.getElementById('placeholderLogoBox');
+  const previewArea = document.getElementById('logoPreviewArea');
+  const previewImg = document.getElementById('logoPreviewImg');
+  const removeBtn = document.getElementById('removeLogoBtn');
+  function updateLogo(url) {
+    if (url) {
+      mainLogo.src = url; mainLogo.style.display = 'inline-block';
+      placeholderBox.style.display = 'none';
+      if(previewImg) previewImg.src = url;
+      if(previewArea) previewArea.style.display = 'flex';
+      localStorage.setItem('exo_custom_logo', url);
+    } else {
+      mainLogo.style.display = 'none';
+      placeholderBox.style.display = 'flex';
+      if(previewImg) previewImg.src = '';
+      if(previewArea) previewArea.style.display = 'none';
+      localStorage.removeItem('exo_custom_logo');
+    }
+  }
+  if (logoUpload) logoUpload.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.match('image.*')) {
+      const reader = new FileReader();
+      reader.onload = (ev) => { updateLogo(ev.target.result); logoUpload.value = ''; };
+      reader.readAsDataURL(file);
+    } else alert('Upload an image');
+  });
+  if (removeBtn) removeBtn.addEventListener('click', () => updateLogo(null));
+  const stored = localStorage.getItem('exo_custom_logo');
+  if (stored) updateLogo(stored); else updateLogo(null);
+  
+  buildTextureLibrary();
+</script>
+</body>
+</html>
